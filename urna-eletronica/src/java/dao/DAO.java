@@ -5,8 +5,10 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,7 +31,7 @@ public class DAO<T> {
     public void insert(T object){
         this.em.getTransaction().begin();
         this.em.persist(object);
-        this.em.close();
+        this.em.getTransaction().commit();
     }
    
         public void update(T object) {
@@ -47,5 +49,22 @@ public class DAO<T> {
     public T get(Class<T> c, long id) {
         return this.em.find(c, id);
     }
+    
+    public List<T> getAll(Class<T> c, String sql){
+        Query query = this.em.createNamedQuery(sql, c);
+        return query.getResultList();
+    }
+    
+    public List<T> getByFields(Class<T> c, String sql, String... param){
+        Query query = this.em.createQuery(sql, c);
+        for(int x=0; x<param.length; x++)
+            query.setParameter(x+1, param[x]);
+        return query.getResultList();
+    }
+        
+    public void close() {
+        this.em.close();
+    }
+
     
 }
