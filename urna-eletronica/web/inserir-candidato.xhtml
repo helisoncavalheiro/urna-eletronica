@@ -6,7 +6,8 @@
 <?xhtml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Registro de candidatos</title>
     </h:head>
@@ -32,6 +33,12 @@
             <label for="partido" >Partido do candidato (Número):  </label>
             <h:inputText id="partido" value=""/>
             -->
+            
+            <h:selectOneMenu value="#{candidatoMB.partido}">
+                <f:selectItem itemValue="1" value="#{partidoMB.partidoDAO.get(List<Partido> partido, 1)}"/>       
+            </h:selectOneMenu>
+            
+            
             <!-- Botão de registrar o candidato -->
             <h:commandButton value="Cadastrar" action="#{candidatoMB.registrarCandidato()}"/>
         </h:form>
