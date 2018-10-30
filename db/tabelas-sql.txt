@@ -46,6 +46,7 @@ CREATE TABLE candidato(
 
 
 CREATE TABLE voto(
+	id_voto SERIAL PRIMARY KEY,
 	id_chapa INTEGER,
 	id_urna INTEGER,
 	CONSTRAINT fk_chapa_id_chapa FOREIGN KEY (id_chapa) REFERENCES chapa(id_chapa),
