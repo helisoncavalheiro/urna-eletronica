@@ -22,6 +22,7 @@ public class EleitorMB implements Serializable {
 
     private Eleitor eleitor;
     private Chapa chapa;
+    private DAO<Chapa> chapaDAO;
     
     
     public EleitorMB() {
@@ -52,7 +53,18 @@ public class EleitorMB implements Serializable {
     
     /*MÉTODOS*/
     
+    
+    /*O eleitor digita o numero da chapa na view.
+    Ao apertar o botão confirma, a view manda o numero da chapa
+    para a instância de chapa contida neste bean gerenciado.
+    O método votar é chamado.
+    Neste método, um objeto do tipo chapa é recuperado do banco de dados e o objeto
+    chapa já instanciado recebe esse dados recuperados do banco de dados.
+    Após isso, é chamado o método registrarVoto do bean gerenciado UrnaMB,
+    passando como parâmetro o objeto chapa.
+    */
     public void votar(){
-        controle.UrnaMB.registrarVoto(chapa);
+        this.chapa = this.chapaDAO.get(List<Chapa> res, this.chapa.getNumeroChapa());
+        controle.UrnaMB.processarVoto(chapa);
     }
 }
