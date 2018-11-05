@@ -19,9 +19,11 @@ CREATE TABLE partido(
 
 CREATE TABLE chapa(
 	id_chapa SERIAL PRIMARY KEY,
-	nome_candidato VARCHAR(100),
-	nome_vice_candidato VARCHAR(100),
-	numero_chapa INTEGER
+	candidato VARCHAR(100),
+	vice_candidato VARCHAR(100),
+	numero_chapa INTEGER,
+	CONSTRAINT fk_candidato FOREIGN KEY (candidato) REFERENCES candidato(id_candidato),
+	CONSTRAINT fk_vice FOREIGN KEY (vice_candidato) REFERENCES candidato(id_candidato)
 );
 
 

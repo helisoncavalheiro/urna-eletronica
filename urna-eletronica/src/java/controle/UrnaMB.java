@@ -5,12 +5,14 @@
  */
 package controle;
 
+import dao.DAO;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import modelo.Chapa;
 import modelo.Urna;
+import modelo.Voto;
 
 /**
  *
@@ -22,13 +24,19 @@ public class UrnaMB implements Serializable{
 
     private Urna urna;
     private DAO<Chapa> chapaDAO;
+    private DAO<Voto> votoDAO;
     private Voto voto;
+    private Chapa chapa;
     public UrnaMB() {
     }
     
     @PostConstruct
     public void init(){
         urna = new Urna();
+        voto = new Voto();
+        chapa = new Chapa();
+        chapaDAO = new DAO<Chapa>("eleicaoPU");
+        votoDAO = new DAO<Voto>("eleicaoPU");
     }
     
     /*
@@ -38,11 +46,13 @@ public class UrnaMB implements Serializable{
     Estes objetos são passados como parâmetro para um método de VotoMB, que irá
     registrar no banco de dados o voto.
     */
-    public void processarVoto(Chapa chapa){
-        votoMB.setChapa(chapa);
-        votoMB.setUrna(this.urna);
-        votoMB.registrarVoto(voto);
+    public void processarVoto(int numChapa){
+        this.chapa = this.chapaDAO.get(Chapa.class, numChapa);
+        this.voto.setIdChapa(this.chapa);
+        this.voto.setIdUrna(this.urna);
+        this.votoDAO.insert(this.voto);
     }
+    
     
     
     

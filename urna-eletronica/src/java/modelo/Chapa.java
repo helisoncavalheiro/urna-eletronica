@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -49,10 +50,9 @@ public class Chapa implements Serializable {
     private Integer numeroChapa;
     @OneToMany(mappedBy = "idChapa")
     private List<Voto> votoList;
-
-    public Chapa() {
+    
+    public Chapa(){
     }
-
     public Chapa(Integer idChapa) {
         this.idChapa = idChapa;
     }
@@ -121,5 +121,4 @@ public class Chapa implements Serializable {
     public String toString() {
         return "modelo.Chapa[ idChapa=" + idChapa + " ]";
     }
-    
 }
