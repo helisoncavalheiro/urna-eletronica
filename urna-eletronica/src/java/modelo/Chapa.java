@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import dao.DAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -14,11 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,8 +29,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Chapa.findAll", query = "SELECT c FROM Chapa c")
     , @NamedQuery(name = "Chapa.findByIdChapa", query = "SELECT c FROM Chapa c WHERE c.idChapa = :idChapa")
-    , @NamedQuery(name = "Chapa.findByNomeCandidato", query = "SELECT c FROM Chapa c WHERE c.nomeCandidato = :nomeCandidato")
-    , @NamedQuery(name = "Chapa.findByNomeViceCandidato", query = "SELECT c FROM Chapa c WHERE c.nomeViceCandidato = :nomeViceCandidato")
     , @NamedQuery(name = "Chapa.findByNumeroChapa", query = "SELECT c FROM Chapa c WHERE c.numeroChapa = :numeroChapa")})
 public class Chapa implements Serializable {
 
@@ -40,19 +38,20 @@ public class Chapa implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_chapa")
     private Integer idChapa;
-    @Size(max = 100)
-    @Column(name = "nome_candidato")
-    private String nomeCandidato;
-    @Size(max = 100)
-    @Column(name = "nome_vice_candidato")
-    private String nomeViceCandidato;
     @Column(name = "numero_chapa")
     private Integer numeroChapa;
     @OneToMany(mappedBy = "idChapa")
     private List<Voto> votoList;
-    
-    public Chapa(){
+    @JoinColumn(name = "nome_candidato", referencedColumnName = "id_candidato")
+    @ManyToOne
+    private Candidato nomeCandidato;
+    @JoinColumn(name = "nome_vice_candidato", referencedColumnName = "id_candidato")
+    @ManyToOne
+    private Candidato nomeViceCandidato;
+
+    public Chapa() {
     }
+
     public Chapa(Integer idChapa) {
         this.idChapa = idChapa;
     }
@@ -63,22 +62,6 @@ public class Chapa implements Serializable {
 
     public void setIdChapa(Integer idChapa) {
         this.idChapa = idChapa;
-    }
-
-    public String getNomeCandidato() {
-        return nomeCandidato;
-    }
-
-    public void setNomeCandidato(String nomeCandidato) {
-        this.nomeCandidato = nomeCandidato;
-    }
-
-    public String getNomeViceCandidato() {
-        return nomeViceCandidato;
-    }
-
-    public void setNomeViceCandidato(String nomeViceCandidato) {
-        this.nomeViceCandidato = nomeViceCandidato;
     }
 
     public Integer getNumeroChapa() {
@@ -95,6 +78,22 @@ public class Chapa implements Serializable {
 
     public void setVotoList(List<Voto> votoList) {
         this.votoList = votoList;
+    }
+
+    public Candidato getNomeCandidato() {
+        return nomeCandidato;
+    }
+
+    public void setNomeCandidato(Candidato nomeCandidato) {
+        this.nomeCandidato = nomeCandidato;
+    }
+
+    public Candidato getNomeViceCandidato() {
+        return nomeViceCandidato;
+    }
+
+    public void setNomeViceCandidato(Candidato nomeViceCandidato) {
+        this.nomeViceCandidato = nomeViceCandidato;
     }
 
     @Override
@@ -121,4 +120,5 @@ public class Chapa implements Serializable {
     public String toString() {
         return "modelo.Chapa[ idChapa=" + idChapa + " ]";
     }
+    
 }

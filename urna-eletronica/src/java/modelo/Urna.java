@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -42,8 +43,9 @@ public class Urna implements Serializable {
     private Integer secao;
     @Column(name = "zona")
     private Integer zona;
+    @Size(max = 80)
     @Column(name = "presidente_secao")
-    private Integer presidenteSecao;
+    private String presidenteSecao;
     @OneToMany(mappedBy = "idUrna")
     private List<Voto> votoList;
     @OneToMany(mappedBy = "idUrna")
@@ -80,11 +82,11 @@ public class Urna implements Serializable {
         this.zona = zona;
     }
 
-    public Integer getPresidenteSecao() {
+    public String getPresidenteSecao() {
         return presidenteSecao;
     }
 
-    public void setPresidenteSecao(Integer presidenteSecao) {
+    public void setPresidenteSecao(String presidenteSecao) {
         this.presidenteSecao = presidenteSecao;
     }
 

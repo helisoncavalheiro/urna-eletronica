@@ -6,7 +6,6 @@
 package dao;
 
 import java.util.List;
-import static javafx.scene.input.KeyCode.T;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -15,11 +14,11 @@ import javax.persistence.Query;
  *
  * @author helison
  */
-public class DAO<T> {
+public class DAOchapa<T> {
     
     private EntityManager em;
     
-    public DAO(String pu){
+    public DAOchapa(String pu){
         if(this.em == null){
             this.em = Persistence.createEntityManagerFactory(pu).createEntityManager();
         }
@@ -33,23 +32,15 @@ public class DAO<T> {
         this.em = em;
     }
     
-    public T get(Class<T> r, int id){
-        return this.em.find(r, id);
+    public T get(Class<T> c, int r){
+        return this.em.find(c, r);
     }
     
-    public List<T> getByField(Class<T> c, String sql, String value) {
+    public List<T> getByField(Class<T> c, String sql, int value) {
         Query query = this.em.createNamedQuery(sql, c);
-        query.setParameter("nome", value);
+        query.setParameter("numeroChapa", value);
         return query.getResultList();
     }
-    
-    public void insert(Object c){
-        this.em.getTransaction().begin();
-        this.em.persist(c);
-        this.em.getTransaction().commit();
-        this.em.close();
-    }
-    
     
     
 }
