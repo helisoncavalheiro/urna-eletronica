@@ -39,8 +39,8 @@ CREATE TABLE candidato(
 
 CREATE TABLE chapa(
 	id_chapa SERIAL PRIMARY KEY,
-	candidato INTEGER,
-	vice_candidato INTEGER,
+	nome_candidato INTEGER,
+	nome_vice_candidato INTEGER,
 	numero_chapa INTEGER,
 	CONSTRAINT fk_candidato FOREIGN KEY (candidato) REFERENCES candidato(id_candidato),
 	CONSTRAINT fk_vice FOREIGN KEY (vice_candidato) REFERENCES candidato(id_candidato)

@@ -1,0 +1,32 @@
+
+
+INSERT INTO partido(numero_partido, nome_partido, legenda_partido) VALUES(13, 'Partido dos Trabalhadores', 'PT');
+
+
+
+
+INSERT INTO candidato(nome, numero_candidato, uf_candidato, partido_candidato, tipo_candidato) VALUES('Fernando Haddad', 13, 'SP', 13, 'Presidente');
+INSERT INTO candidato(nome, numero_candidato, uf_candidato, partido_candidato, tipo_candidato) VALUES('Manuela D'Avila', 13, 'SP', 13, 'Vice-Presidente');
+
+
+INSERT INTO chapa(candidato, vice_candidato, numero_chapa) VALUES(1, 2, 13);
+
+
+SELECT * FROM voto;
+SELECT * FROM chapa;
+SELECT * FROM partido
+SELECT * FROM candidato;
+INSERT INTO partido VALUES(17, 'PSL', 'PSL');
+INSERT INTO candidato(nome, numero_candidato, uf_candidato, partido_candidato, tipo_candidato) VALUES ('Jair Bolsonaro', 17, 'RJ', 17, 'Presidente');
+INSERT INTO candidato(nome, numero_candidato, uf_candidato, partido_candidato, tipo_candidato) VALUES ('General Mourão', 17, 'RJ', 17, 'Vice-Presidente');
+INSERT INTO chapa (nome_candidato, nome_vice_candidato, numero_chapa) VALUES (4, 5, 17);
+
+
+INSERT INTO candidato(nome, numero_candidato, uf_candidato, partido_candidato, tipo_candidato) VALUES ('Maria do Rosário', 1370, 'RS', 13, 'Deputado Federal');
+INSERT INTO candidato(nome, numero_candidato, uf_candidato, partido_candidato, tipo_candidato) VALUES ('Paulo Paim', 131, 'RS', 13, 'Senador');
+
+SELECT * FROM eleitor;
+
+INSERT INTO eleitor VALUES(189306479235, 'Helison Ortiz Cavalheiro', 04285314070, 'RS', 'N/A', 1);
+
+UPDATE eleitor SET situacao = 'F' WHERE titulo_eleitoral = 189306479235; 

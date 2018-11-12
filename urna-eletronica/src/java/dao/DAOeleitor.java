@@ -6,20 +6,20 @@
 package dao;
 
 import java.util.List;
+import static javafx.scene.input.KeyCode.T;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import modelo.Chapa;
+import modelo.Eleitor;
 
 /**
  *
  * @author helison
  */
-public class DAOchapa {
+public class DAOeleitor {
+        private EntityManager em;
     
-    private EntityManager em;
-    
-    public DAOchapa(String pu){
+    public DAOeleitor(String pu){
         if(this.em == null){
             this.em = Persistence.createEntityManagerFactory(pu).createEntityManager();
         }
@@ -33,15 +33,23 @@ public class DAOchapa {
         this.em = em;
     }
     
-    public Chapa get(int r){
-        return this.em.find(Chapa.class, r);
+    public Eleitor get(long r){
+        return this.em.find(Eleitor.class, r);
     }
     
-    public List<Chapa> getByField(String sql, int value) {
-        Query query = this.em.createNamedQuery(sql, Chapa.class);
+    public void update(Eleitor eleitor){
+        this.em.getTransaction().begin();
+        this.em.merge(eleitor);
+        this.em.getTransaction().commit();
+        this.em.close();
+    }
+    
+    public List<Eleitor> getByField(String sql, int value) {
+        Query query = this.em.createNamedQuery(sql, Eleitor.class);
         query.setParameter("numeroChapa", value);
         return query.getResultList();
     }
     
     
 }
+

@@ -7,11 +7,13 @@ package controle;
 
 import dao.DAO;
 import dao.DAOchapa;
+import dao.DAOeleitor;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import modelo.Chapa;
+import modelo.Eleitor;
 import modelo.Urna;
 import modelo.Voto;
 
@@ -24,9 +26,11 @@ import modelo.Voto;
 public class UrnaMB implements Serializable{
 
     private Urna urna;
-    private DAOchapa<Chapa> chapaDAO;
+    private Eleitor eleitor;
+    private DAOchapa chapaDAO;
     private DAO<Voto> votoDAO;
     private DAO<Urna> urnaDAO;
+    private DAOeleitor eleitorDAO;
     private Voto voto;
     private Chapa chapa;
     private int numChapa;
@@ -42,17 +46,35 @@ public class UrnaMB implements Serializable{
     public void setNumChapa(int numChapa) {
         this.numChapa = numChapa;
     }
+
+    public Urna getUrna() {
+        return urna;
+    }
+
+    public void setUrna(Urna urna) {
+        this.urna = urna;
+    }
+
+    public Eleitor getEleitor() {
+        return eleitor;
+    }
+
+    public void setEleitor(Eleitor eleitor) {
+        this.eleitor = eleitor;
+    }
     
     
-    
+   
     @PostConstruct
     public void init(){
         urna = new Urna();
         voto = new Voto();
         chapa = new Chapa();
-        chapaDAO = new DAOchapa<Chapa>("urna-eletronicaPU");
+        eleitor = new Eleitor();
+        chapaDAO = new DAOchapa("urna-eletronicaPU");
         votoDAO = new DAO<Voto>("urna-eletronicaPU");
         urnaDAO = new DAO<Urna>("urna-eletronicaPU");
+        eleitorDAO = new DAOeleitor("urna-eletronicaPU");
     }
     
     /*
@@ -62,16 +84,18 @@ public class UrnaMB implements Serializable{
     Estes objetos são passados como parâmetro para um método de VotoMB, que irá
     registrar no banco de dados o voto.
     */
-    public void processarVoto(){
+    public String processarVoto(){
         
-        this.chapa = this.chapaDAO.getByField(Chapa.class, "Chapa.findByNumeroChapa", this.numChapa).get(0);
-        this.urna = this.urnaDAO.get(Urna.class, 1);
+        this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0);
+        this.urna = this.urnaDAO.get(Urna.class, this.urna.getIdUrna());
+        this.eleitor = this.eleitorDAO.get(this.eleitor.getTituloEleitoral());
+        this.eleitor.setSituacao("P");
+        this.eleitorDAO.update(eleitor);
         this.voto.setIdChapa(this.chapa);
         this.voto.setIdUrna(this.urna);
         this.votoDAO.insert(this.voto);
         
-       
-
+        return "final";
     }
     
     
