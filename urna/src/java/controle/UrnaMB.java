@@ -87,7 +87,7 @@ public class UrnaMB implements Serializable{
     
    
     @PostConstruct
-    public void init(){
+    public void init() {
         urna = new Urna();
         voto = new Voto();
         chapa = new Chapa();
@@ -96,6 +96,7 @@ public class UrnaMB implements Serializable{
         votoDAO = new DAO<Voto>("urnaPU");
         urnaDAO = new DAO<Urna>("urnaPU");
         eleitorDAO = new DAOeleitor("urnaPU");
+
     }
     
     /*
@@ -108,14 +109,12 @@ public class UrnaMB implements Serializable{
     public String processarVoto(){
         
         this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0);
-        this.urna = this.urnaDAO.get(Urna.class, this.idUrna);
         this.eleitor = this.eleitorDAO.get(Eleitor.class, this.titulo);
         this.eleitor.setSituacao("P");
         this.eleitorDAO.update(eleitor);
         this.voto.setIdChapa(this.chapa);
         this.voto.setIdUrna(this.urna);
         this.votoDAO.insert(this.voto);
-        
         return "final";
     }
     

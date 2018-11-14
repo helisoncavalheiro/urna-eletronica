@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/helison/dados/Documentos/NetBeansProjects/urna/web/final.xhtml</file>
-            <file>file:/home/helison/dados/Documentos/NetBeansProjects/urna/src/java/controle/UrnaMB.java</file>
-            <file>file:/home/helison/dados/Documentos/NetBeansProjects/urna/web/index.xhtml</file>
+            <file>file:/home/helison/dados/Documentos/TADS/trabalho-urna/urna/web/eleitor.xhtml</file>
+            <file>file:/home/helison/dados/Documentos/TADS/trabalho-urna/urna/src/java/util/Session.java</file>
+            <file>file:/home/helison/dados/Documentos/TADS/trabalho-urna/urna/src/java/controle/ConfigMB.java</file>
+            <file>file:/home/helison/dados/Documentos/TADS/trabalho-urna/urna/web/index.xhtml</file>
+            <file>file:/home/helison/dados/Documentos/TADS/trabalho-urna/urna/src/java/controle/UrnaMB.java</file>
+            <file>file:/home/helison/dados/Documentos/TADS/trabalho-urna/urna/web/urna.xhtml</file>
         </group>
     </open-files>
 </project-private>

@@ -1,66 +1,32 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-                 
-
+    
     <h:head>
-        <title>Facelet Title</title>
+        <title>Abrir Votação</title>
     </h:head>
     <h:body>
-        
         <b:form>
-            <b:container>
+            <b:container fluid="true">
                 <b:panel large-screen="6" offset="3">
                     <b:row>
                         <b:column large-screen="3">
                             <label for="urna">Número da Urna: </label>
                         </b:column>
                         <b:column large-screen="9">
-                            <b:inputText id="urna" value="#{urnaMB.idUrna}"/>
+                            <b:inputText id="urna" value="#{configMB.idUrna}"/>
                         </b:column>
                     </b:row>
-                    
                     <b:row>
-                        <b:column large-screen="3">
-                            <label for="titulo">Título de eleitor: </label>
-                        </b:column>
-                        <b:column large-screen="9">
-                            <b:inputText id="titulo" value="#{urnaMB.titulo}"/>
+                        <b:column>
+                            <b:commandButton value="INICIAR VOTAÇÃO" look="success" action="#{configMB.iniciarVotacao()}"></b:commandButton>
                         </b:column>
                     </b:row>
                 </b:panel>
             </b:container>
-            
-            <b:container>
-                <b:panel large-screen="6" offset="3">
-                    <b:row>
-                        <b:column large-screen="4">
-                        <label for="voto">Número do candidato</label>
-                        </b:column>
-                        <b:column large-screen="8">
-                            <b:inputText id="voto" value="#{urnaMB.numChapa}"/>
-                        </b:column>
-                    </b:row>
-
-                    <b:row>
-                        <b:column large-screen="8" offset="2">
-                            <b:column large-screen="4">
-                                <b:commandButton look="success" value="CONFIRMA" action="#{urnaMB.processarVoto()}"></b:commandButton>
-                            </b:column>
-                            <b:column large-screen="4">
-                                <b:commandButton look="warning" value="LIMPA" action="index"></b:commandButton>
-                            </b:column>
-                            <b:column large-screen="4">
-                                <b:commandButton look="" value="BRANCO"></b:commandButton>
-                            </b:column>
-                        </b:column>
-                    </b:row>
-                </b:panel>
-                
-            </b:container>          
         </b:form>
     </h:body>
 </html>
