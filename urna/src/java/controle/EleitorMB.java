@@ -19,20 +19,17 @@ import modelo.Eleitor;
 @Named(value = "eleitorMB")
 @ViewScoped
 public class EleitorMB implements Serializable {
-    
-    
+
     private Eleitor eleitor;
     private long titulo;
     private DAOeleitor eleitorDAO;
-    
-    
-    
+    private String erro;
+
     public EleitorMB() {
     }
-    
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         eleitor = new Eleitor();
         eleitorDAO = new DAOeleitor("urnaPU");
     }
@@ -44,19 +41,34 @@ public class EleitorMB implements Serializable {
     public void setTitulo(long titulo) {
         this.titulo = titulo;
     }
-    
-    
-    public String liberarVoto(){
-        
-        this.eleitor = this.eleitorDAO.get(Eleitor.class, titulo);
-        util.Session.put("eleitor", this.eleitor);
-        
-        if(this.eleitor != null){
-            return "urna";
-        }
-        else{
-            return "eleitor";
-        }
+
+    public String getErro() {
+        return erro;
+    }
+
+    public void setErro(String erro) {
+        this.erro = erro;
     }
     
+    
+
+    public String liberarVoto() {
+
+        this.eleitor = this.eleitorDAO.get(Eleitor.class, titulo);
+
+        if (this.eleitor.getSituacao().equals("P")) {
+            erro = "Eleitor já votou";
+            util.Session.put("erro", erro);
+            return "error";
+        } else {
+            util.Session.put("eleitor", this.eleitor);
+            if (this.eleitor != null) {
+                return "urna";
+            } else {
+                return "eleitor";
+            }
+            
+        }
+    }
+
 }
