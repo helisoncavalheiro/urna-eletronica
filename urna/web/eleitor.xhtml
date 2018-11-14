@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
     
     <h:head>
-        <title>Auteticacao</title>
+        <title>Eleitor</title>
     </h:head>
     <h:body>
         
@@ -18,11 +18,11 @@
                             <label for="titulo">Título de eleitor: </label>
                         </b:column>
                         <b:column large-screen="9">
-                            <b:inputText id="titulo" value="#{urnaMB.titulo}"/>
+                            <b:inputText id="titulo" value="#{eleitorMB.titulo}"/>
                         </b:column>
                     </b:row>
                     
-                    <b:commandButton look="success" value="LIBERAR VOTO" action="urna" ></b:commandButton>
+                    <b:commandButton look="success" value="LIBERAR VOTO" action="#{eleitorMB.liberarVoto()}"></b:commandButton>
                 </b:panel>
             </b:container>                   
         </b:form>

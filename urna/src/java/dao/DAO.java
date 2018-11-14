@@ -50,6 +50,10 @@ public class DAO<T> {
         this.em.close();
     }
     
+    public List<T> getAll(Class<T> c, String sql){
+        Query query = this.em.createNamedQuery(sql, c);
+        return query.getResultList();
+    }
     
     
 }

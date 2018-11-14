@@ -7,10 +7,13 @@ package controle;
 
 import dao.DAO;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import modelo.Urna;
+import modelo.Voto;
 
 /**
  *
@@ -23,7 +26,9 @@ public class ConfigMB implements Serializable {
     private Urna urna;
     private int idUrna;
     private DAO<Urna> urnaDAO;
-
+    private DAO<Voto> votoDAO;
+    private List<Voto> votos;
+    
     public ConfigMB() {
     }
 
@@ -31,6 +36,8 @@ public class ConfigMB implements Serializable {
     public void init() {
         urna = new Urna();
         urnaDAO = new DAO<Urna>("urnaPU");
+        votos = new ArrayList<Voto>();
+        votoDAO = new DAO<Voto>("urnaPU");
     }
 
     public int getIdUrna() {
@@ -42,20 +49,35 @@ public class ConfigMB implements Serializable {
     }
     
     
-    
 
     public String iniciarVotacao() {
 
         this.urna = this.urnaDAO.get(Urna.class, idUrna);
         util.Session.put("urna", this.urna);
-
+        
+        this.votos = this.votoDAO.getAll(Voto.class, "Voto.findAll");
+        util.Session.put("votos", votos);
+        
         if (this.urna != null) {
-            return "eleitor";
-        }
-        else{
+            return "zeresima";            
+        } else {
             return "index";
         }
+        
+    }
 
+    public String novoVoto() {
+
+        util.Session.remove("eleitor");
+
+        return "eleitor";
+    }
+
+    public String encerrarVotacao() {
+
+        util.Session.clear();
+
+        return "zeresima";
     }
 
 }
