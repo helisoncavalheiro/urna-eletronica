@@ -42,8 +42,8 @@ CREATE TABLE chapa(
 	nome_candidato INTEGER,
 	nome_vice_candidato INTEGER,
 	numero_chapa INTEGER,
-	CONSTRAINT fk_candidato FOREIGN KEY (candidato) REFERENCES candidato(id_candidato),
-	CONSTRAINT fk_vice FOREIGN KEY (vice_candidato) REFERENCES candidato(id_candidato)
+	CONSTRAINT fk_candidato FOREIGN KEY (nome_candidato) REFERENCES candidato(id_candidato),
+	CONSTRAINT fk_vice FOREIGN KEY (nome_vice_candidato) REFERENCES candidato(id_candidato)
 );
 
 CREATE TABLE voto(
