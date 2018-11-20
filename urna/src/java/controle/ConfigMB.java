@@ -47,6 +47,16 @@ public class ConfigMB implements Serializable {
     public void setIdUrna(int idUrna) {
         this.idUrna = idUrna;
     }
+
+    public List<Voto> getVotos() {
+        return votos;
+    }
+
+    public void setVotos(List<Voto> votos) {
+        this.votos = votos;
+    }
+    
+    
     
     
 
@@ -59,6 +69,7 @@ public class ConfigMB implements Serializable {
         util.Session.put("votos", votos);
         
         if (this.urna != null) {
+            this.votos = this.votoDAO.getAll(Voto.class, "Voto.findAll");
             return "zeresima";            
         } else {
             return "index";

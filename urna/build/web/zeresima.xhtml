@@ -11,21 +11,20 @@
         <b:container>
             <b:panel>
                 <b:form>
-                    <b:inputText id="edVotos" value="#{zeresimaMB.votos}" />
                     <b:row>
                         <b:column>
                             <b:commandButton look="warning" value="GERAR ZERESIMA" action="#{zeresimaMB.gerarZeresima()}">
-                                <f:ajax execute="edVotos" render="tabelaVotos"/>
+                                
                             </b:commandButton>
                         </b:column>
                     </b:row>
                 </b:form>
                 <b:row>
                     <b:column>
-                        <b:dataTable id="tabelaVotos" value="#{zeresimaMB.votos}" var="voto">
-                            <b:dataTableColumn value="#{voto.id_chapa}"/>
-                            <b:dataTableColumn value="#{voto.id_urna}"/>
-                            <b:dataTableColumn value="#{voto.id_urna}"/>
+                        <b:dataTable id="tabelaVotos" value="#{configMB.votos}" var="voto">
+                            <b:dataTableColumn value="#{votos.id_voto}"/>
+                            <b:dataTableColumn value="#{votos.id_chapa}"/>
+                            <b:dataTableColumn value="#{votos.id_urna}"/>
                         </b:dataTable>
                     </b:column>
                 </b:row>

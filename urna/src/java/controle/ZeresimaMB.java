@@ -44,9 +44,8 @@ public class ZeresimaMB implements Serializable {
     
     
     
-    public String gerarZeresima(){
+    public void gerarZeresima(){
         this.votos = this.votoDAO.getAll(Voto.class, "Voto.findAll");
-        return "zeresima";
     }
     
     
