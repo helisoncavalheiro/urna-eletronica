@@ -14,13 +14,13 @@ CREATE TABLE partido(
 	numero_partido INTEGER PRIMARY KEY,
 	nome_partido VARCHAR(50),
 	legenda_partido VARCHAR(10)
-	
+
 );
 
 CREATE TABLE eleitor(
 	titulo_eleitoral BIGINT PRIMARY KEY,
 	nome VARCHAR(100),
-	cpf BIGINT,	
+	cpf BIGINT,
 	uf VARCHAR(5),
 	situacao VARCHAR(10),
 	id_urna INTEGER,
@@ -48,11 +48,10 @@ CREATE TABLE chapa(
 
 CREATE TABLE voto(
 	id_voto SERIAL PRIMARY KEY,
-	id_chapa INTEGER,
+	id_chapa_voto INTEGER,
 	id_urna INTEGER,
+	data_voto DATE,
 	CONSTRAINT fk_chapa_id_chapa FOREIGN KEY (id_chapa) REFERENCES chapa(id_chapa),
 	CONSTRAINT fk_urna_id_urna FOREIGN KEY (id_urna) REFERENCES urna(id_urna)
 );
-
-
 

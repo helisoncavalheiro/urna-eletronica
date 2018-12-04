@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+                 
+
+    <h:head>
+        <title>Votação</title>
+    </h:head>
+    <h:body>
+        
+        <b:form>            
+            <b:container>
+                <b:panel large-screen="6" offset="3">
+                    <b:row>
+                        <b:column large-screen="4">
+                        <label for="voto">Número do candidato</label>
+                        </b:column>
+                        <b:column large-screen="8">
+                            <b:inputText id="voto" value="#{configMB.numChapa}"/>
+                        </b:column>
+                    </b:row>
+
+                    <b:row>
+                        <b:column large-screen="8" offset="2">
+                            <b:column large-screen="4">
+                                <b:commandButton look="success" value="CONFIRMA" action="#{configMB.processarVoto()}"></b:commandButton>
+                            </b:column>
+                            <b:column large-screen="4">
+                                <b:commandButton look="warning" value="LIMPA" action="urna"></b:commandButton>
+                            </b:column>
+                            <b:column large-screen="4">
+                                <b:commandButton look="" value="BRANCO"></b:commandButton>
+                            </b:column>
+                        </b:column>
+                    </b:row>
+                </b:panel>
+                
+            </b:container>          
+        </b:form>
+    </h:body>
+</html>
+
