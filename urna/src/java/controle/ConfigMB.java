@@ -104,7 +104,7 @@ public class ConfigMB implements Serializable {
             return "relatorio";
             //return "eleitor";
         } else {
-            return "index";
+            return "config_urna";
         }
 
     }
