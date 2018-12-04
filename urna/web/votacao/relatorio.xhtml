@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Relatório de Votos</title>
+    </h:head>
+    <h:body>
+
+        <b:dataTable var="voto" value="#{configMB.votos}">
+            <b:column>
+                <f:facet name="header">
+                    <h:outputText value="Voto"/>
+                </f:facet>
+                <h:outputText value="Id da chapa"/> #{voto.idChapaVoto.toString()}
+            </b:column>                
+        </b:dataTable>
+
+        <b:button look="success" value="Ir para votação" outcome="eleitor"></b:button>
+        <b:button look="danger" value="Encerrar" outcome="#{configMB.encerrarVotacao()}" ></b:button>
+
+    </h:body>
+</html>
+

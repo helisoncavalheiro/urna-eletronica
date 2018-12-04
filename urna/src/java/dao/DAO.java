@@ -33,6 +33,7 @@ public class DAO<T> {
         this.em = em;
     }
     
+    
     public T get(Class<T> r, int id){
         return this.em.find(r, id);
     }
@@ -47,7 +48,7 @@ public class DAO<T> {
         this.em.getTransaction().begin();
         this.em.persist(c);
         this.em.getTransaction().commit();
-        this.em.close();
+        this.em.clear();
     }
     
     public List<T> getAll(Class<T> c, String sql){

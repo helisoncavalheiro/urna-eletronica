@@ -41,7 +41,7 @@ public class DAOeleitor {
         this.em.getTransaction().begin();
         this.em.merge(eleitor);
         this.em.getTransaction().commit();
-        this.em.close();
+        this.em.clear();
     }
     
     public List<Eleitor> getByField(String sql, int value) {

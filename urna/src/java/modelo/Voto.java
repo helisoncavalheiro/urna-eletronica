@@ -6,7 +6,9 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -26,7 +30,8 @@ import javax.persistence.Table;
 @Table(name = "voto")
 @NamedQueries({
     @NamedQuery(name = "Voto.findAll", query = "SELECT v FROM Voto v")
-    , @NamedQuery(name = "Voto.findByIdVoto", query = "SELECT v FROM Voto v WHERE v.idVoto = :idVoto")})
+    , @NamedQuery(name = "Voto.findByIdVoto", query = "SELECT v FROM Voto v WHERE v.idVoto = :idVoto")
+    , @NamedQuery(name = "Voto.findByDataVoto", query = "SELECT v FROM Voto v WHERE v.dataVoto = :dataVoto")})
 public class Voto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,14 +40,23 @@ public class Voto implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_voto")
     private Integer idVoto;
-    @JoinColumn(name = "id_chapa", referencedColumnName = "id_chapa")
+    @Column(name = "data_voto")
+    @Temporal(TemporalType.DATE)
+    private Date dataVoto;
+    @JoinColumn(name = "id_chapa_voto", referencedColumnName = "id_chapa")
     @ManyToOne
-    private Chapa idChapa;
+    private Chapa idChapaVoto;
     @JoinColumn(name = "id_urna", referencedColumnName = "id_urna")
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.ALL)
     private Urna idUrna;
 
     public Voto() {
+    }
+    
+    public Voto(Urna idUrna, Chapa idChapaVoto, Date dataVoto){
+        this.idUrna = idUrna;
+        this.dataVoto = dataVoto;
+        this.idChapaVoto = idChapaVoto;
     }
 
     public Voto(Integer idVoto) {
@@ -57,12 +71,20 @@ public class Voto implements Serializable {
         this.idVoto = idVoto;
     }
 
-    public Chapa getIdChapa() {
-        return idChapa;
+    public Date getDataVoto() {
+        return dataVoto;
     }
 
-    public void setIdChapa(Chapa idChapa) {
-        this.idChapa = idChapa;
+    public void setDataVoto(Date dataVoto) {
+        this.dataVoto = dataVoto;
+    }
+
+    public Chapa getIdChapaVoto() {
+        return idChapaVoto;
+    }
+
+    public void setIdChapaVoto(Chapa idChapaVoto) {
+        this.idChapaVoto = idChapaVoto;
     }
 
     public Urna getIdUrna() {

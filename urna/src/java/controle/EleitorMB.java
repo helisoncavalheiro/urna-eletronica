@@ -48,9 +48,7 @@ public class EleitorMB implements Serializable {
 
     public void setErro(String erro) {
         this.erro = erro;
-    }
-    
-    
+    }    
 
     public String liberarVoto() {
 
@@ -58,9 +56,11 @@ public class EleitorMB implements Serializable {
 
         if (this.eleitor.getSituacao().equals("P")) {
             erro = "Eleitor já votou";
-            util.Session.put("erro", erro);
+            util.Session.put("erro", this.erro);
             return "error";
-        } else {
+        } 
+        
+        else {
             util.Session.put("eleitor", this.eleitor);
             if (this.eleitor != null) {
                 return "urna";

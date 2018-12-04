@@ -40,7 +40,7 @@ public class Chapa implements Serializable {
     private Integer idChapa;
     @Column(name = "numero_chapa")
     private Integer numeroChapa;
-    @OneToMany(mappedBy = "idChapa")
+    @OneToMany(mappedBy = "idChapaVoto")
     private List<Voto> votoList;
     @JoinColumn(name = "nome_candidato", referencedColumnName = "id_candidato")
     @ManyToOne

@@ -4,12 +4,12 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
     <h:head>
         <title>Eleitor</title>
     </h:head>
     <h:body>
-        
+
         <b:form>
             <b:container>
                 <b:panel large-screen="6" offset="3">                   
@@ -21,12 +21,12 @@
                             <b:inputText id="titulo" value="#{eleitorMB.titulo}"/>
                         </b:column>
                     </b:row>
-                    
+
                     <b:commandButton look="success" value="LIBERAR VOTO" action="#{eleitorMB.liberarVoto()}"></b:commandButton>
-                </b:panel>
+                </b:panel>               
             </b:container>                   
         </b:form>
-        
+
     </h:body>
 </html>
 
