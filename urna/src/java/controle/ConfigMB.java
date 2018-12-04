@@ -101,18 +101,18 @@ public class ConfigMB implements Serializable {
         this.urna = this.urnaDAO.get(Urna.class, this.idUrna); // provisório
         if (this.urna != null) {
             this.votos = this.votoDAO.getCandidatos(Voto.class, "Voto.findAll");
-            return "relatorio";
+            return "votacao/relatorio";
             //return "eleitor";
         } else {
-            return "config_urna";
+            return "votacao/config_urna";
         }
 
     }
 
     public String novoVoto() {
 
-        util.Session.remove("eleitor");
-        return "eleitor";
+        util.Session.remove("votacao/eleitor");
+        return "votacao/eleitor";
     }
 
     public String processarVoto() {
@@ -127,7 +127,7 @@ public class ConfigMB implements Serializable {
         // recupera a chapa de acordo com o numero digitado pelo eleitor
         this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0); 
         //recupera o eleitor da sessão
-        this.eleitor = (Eleitor) util.Session.get("eleitor");
+        this.eleitor = (Eleitor) util.Session.get("votacao/eleitor");
         // recupera a urna do banco de dados, de acordo com a urna digitada no início da sessão
         //this.urna = urnaDAO.get(Urna.class, idUrna); removido por duplicidade. Já está no método iniciar votação
         this.eleitor.setSituacao("P"); // seta a situação do eleitor como presente
@@ -144,7 +144,7 @@ public class ConfigMB implements Serializable {
         this.numChapa = 0; // limpa o campo da chapa
         this.cursor ++; // representa o número de vezes que entrou nesse método
         
-        return "final"; // redireciona para a pagina de finalização do voto
+        return "votacao/final"; // redireciona para a pagina de finalização do voto
     }
        
     // limpa os objetos da sessão
@@ -156,7 +156,7 @@ public class ConfigMB implements Serializable {
         this.voto = null;
         this.eleitor = null;
         util.Session.clear(); // limpa os objetos na sessão
-        return "encerrar";
+        return "votacao/encerrar";
     }
     /*
     public int listarVotos(){
