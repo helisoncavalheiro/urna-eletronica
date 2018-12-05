@@ -36,3 +36,8 @@ BEGIN;
 	INSERT INTO eleitor VALUES(453698975368, 'Paula Rafaela', 26349685631, 'RS', 'F', 1);
 	INSERT INTO eleitor VALUES(362458795362, 'Marcos Luís', 69851563254, 'RS', 'F', 1);
 COMMIT;
+
+
+BEGIN;
+	INSERT INTO usuarios(login_user, passwd_user) VALUES('root', 12345);
+COMMIT;
