@@ -55,3 +55,8 @@ CREATE TABLE voto(
 	CONSTRAINT fk_urna_id_urna FOREIGN KEY (id_urna) REFERENCES urna(id_urna)
 );
 
+CREATE TABLE usuarios(
+	id_user SERIAL PRIMARY KEY,
+	login_user VARCHAR(16),
+	passwd_user BIGINT);
+)
