@@ -17,12 +17,12 @@
                             <label for="urna">Número da Urna: </label>
                         </b:column>
                         <b:column large-screen="9">
-                            <b:inputText id="urna" value="#{configMB.idUrna}"/>
+                            <b:inputText id="urna" value="#{votogMB.idUrna}"/>
                         </b:column>
                     </b:row>
                     <b:row>
                         <b:column>
-                            <b:commandButton value="INICIAR VOTAÇÃO" look="success" action="#{configMB.iniciarVotacao()}"></b:commandButton>
+                            <b:commandButton value="INICIAR VOTAÇÃO" look="success" action="#{votoMB.iniciarVotacao()}"></b:commandButton>
                         </b:column>
                     </b:row>
                 </b:panel>

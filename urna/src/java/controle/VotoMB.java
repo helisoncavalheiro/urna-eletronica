@@ -26,7 +26,7 @@ import modelo.Voto;
  */
 @Named(value = "configMB")
 @SessionScoped
-public class ConfigMB implements Serializable {
+public class VotoMB implements Serializable {
 
     private int idUrna;
     private int numChapa;
@@ -41,7 +41,7 @@ public class ConfigMB implements Serializable {
     private DAOchapa chapaDAO;
     private DAOeleitor eleitorDAO;
 
-    public ConfigMB() {
+    public VotoMB() {
     }
 
     @PostConstruct
