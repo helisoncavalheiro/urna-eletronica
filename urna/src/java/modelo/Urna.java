@@ -48,6 +48,8 @@ public class Urna implements Serializable {
     private String presidenteSecao;
     @OneToMany(mappedBy = "idUrna")
     private List<Voto> votoList;
+    @OneToMany(mappedBy = "urnaUser")
+    private List<Usuario> usuarioList;
     @OneToMany(mappedBy = "idUrna")
     private List<Eleitor> eleitorList;
 
@@ -96,6 +98,14 @@ public class Urna implements Serializable {
 
     public void setVotoList(List<Voto> votoList) {
         this.votoList = votoList;
+    }
+
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     public List<Eleitor> getEleitorList() {

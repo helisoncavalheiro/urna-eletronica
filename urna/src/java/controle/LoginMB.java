@@ -15,7 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.persistence.NoResultException;
-import modelo.Usuarios;
+import modelo.Usuario;
+
 
 /**
  *
@@ -27,16 +28,16 @@ public class LoginMB implements Serializable {
 
     private String login;
     private long senha;
-    private Usuarios usuario;
-    private DAO<Usuarios> DAOusuario;
+    private Usuario usuario;
+    private DAO<Usuario> DAOusuario;
 
     public LoginMB() {
     }
 
     @PostConstruct
     public void init() {
-        this.usuario = new Usuarios();
-        this.DAOusuario = new DAO<Usuarios>("urnaPU");
+        this.usuario = new Usuario();
+        this.DAOusuario = new DAO<Usuario>("urnaPU");
     }
 
     public String getLogin() {
@@ -57,9 +58,13 @@ public class LoginMB implements Serializable {
 
     public String autenticacao() {
         try {
-            this.usuario = this.DAOusuario.getOneObject(Usuarios.class, "Usuarios.findByLoginUser", login);
+            this.usuario = this.DAOusuario.getOneObject(Usuario.class, "Usuario.findByLoginUser", login);
             if (Long.parseLong(usuario.getPasswdUser().toString()) == this.senha) {
-                return "admin/admin";
+                if(usuario.getTipoUser() == "SU")
+                    return "admin/admin";
+                else
+                    return "votacao/config_urna";
+                
             } else {
                 FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Senha incorreta"));
                 return "login";

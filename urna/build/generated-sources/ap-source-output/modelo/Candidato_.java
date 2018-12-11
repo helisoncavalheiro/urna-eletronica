@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.Chapa;
 import modelo.Partido;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-12-05T20:03:30")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-12-11T19:27:43")
 @StaticMetamodel(Candidato.class)
 public class Candidato_ { 
 

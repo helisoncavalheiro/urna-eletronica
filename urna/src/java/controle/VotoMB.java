@@ -24,7 +24,7 @@ import modelo.Voto;
  *
  * @author helison
  */
-@Named(value = "configMB")
+@Named(value = "votoMB")
 @SessionScoped
 public class VotoMB implements Serializable {
 
@@ -101,18 +101,18 @@ public class VotoMB implements Serializable {
         this.urna = this.urnaDAO.get(Urna.class, this.idUrna); // provisório
         if (this.urna != null) {
             this.votos = this.votoDAO.getCandidatos(Voto.class, "Voto.findAll");
-            return "votacao/relatorio";
+            return "relatorio";
             //return "eleitor";
         } else {
-            return "votacao/config_urna";
+            return "config_urna";
         }
 
     }
 
     public String novoVoto() {
 
-        util.Session.remove("votacao/eleitor");
-        return "votacao/eleitor";
+        util.Session.remove("eleitor");
+        return "eleitor";
     }
 
     public String processarVoto() {
@@ -127,7 +127,7 @@ public class VotoMB implements Serializable {
         // recupera a chapa de acordo com o numero digitado pelo eleitor
         this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0); 
         //recupera o eleitor da sessão
-        this.eleitor = (Eleitor) util.Session.get("votacao/eleitor");
+        this.eleitor = (Eleitor) util.Session.get("eleitor");
         // recupera a urna do banco de dados, de acordo com a urna digitada no início da sessão
         //this.urna = urnaDAO.get(Urna.class, idUrna); removido por duplicidade. Já está no método iniciar votação
         this.eleitor.setSituacao("P"); // seta a situação do eleitor como presente
@@ -144,7 +144,7 @@ public class VotoMB implements Serializable {
         this.numChapa = 0; // limpa o campo da chapa
         this.cursor ++; // representa o número de vezes que entrou nesse método
         
-        return "votacao/final"; // redireciona para a pagina de finalização do voto
+        return "final"; // redireciona para a pagina de finalização do voto
     }
        
     // limpa os objetos da sessão
@@ -156,7 +156,7 @@ public class VotoMB implements Serializable {
         this.voto = null;
         this.eleitor = null;
         util.Session.clear(); // limpa os objetos na sessão
-        return "votacao/encerrar";
+        return "encerrar";
     }
     /*
     public int listarVotos(){

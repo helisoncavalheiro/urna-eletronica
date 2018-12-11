@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,13 +25,14 @@ import javax.validation.constraints.Size;
  * @author helison
  */
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 @NamedQueries({
-    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")
-    , @NamedQuery(name = "Usuarios.findByIdUser", query = "SELECT u FROM Usuarios u WHERE u.idUser = :idUser")
-    , @NamedQuery(name = "Usuarios.findByLoginUser", query = "SELECT u FROM Usuarios u WHERE u.loginUser = :loginUser")
-    , @NamedQuery(name = "Usuarios.findByPasswdUser", query = "SELECT u FROM Usuarios u WHERE u.passwdUser = :passwdUser")})
-public class Usuarios implements Serializable {
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+    , @NamedQuery(name = "Usuario.findByIdUser", query = "SELECT u FROM Usuario u WHERE u.idUser = :idUser")
+    , @NamedQuery(name = "Usuario.findByLoginUser", query = "SELECT u FROM Usuario u WHERE u.loginUser = :loginUser")
+    , @NamedQuery(name = "Usuario.findByPasswdUser", query = "SELECT u FROM Usuario u WHERE u.passwdUser = :passwdUser")
+    , @NamedQuery(name = "Usuario.findByTipoUser", query = "SELECT u FROM Usuario u WHERE u.tipoUser = :tipoUser")})
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,11 +45,17 @@ public class Usuarios implements Serializable {
     private String loginUser;
     @Column(name = "passwd_user")
     private BigInteger passwdUser;
+    @Size(max = 50)
+    @Column(name = "tipo_user")
+    private String tipoUser;
+    @JoinColumn(name = "urna_user", referencedColumnName = "id_urna")
+    @ManyToOne
+    private Urna urnaUser;
 
-    public Usuarios() {
+    public Usuario() {
     }
 
-    public Usuarios(Integer idUser) {
+    public Usuario(Integer idUser) {
         this.idUser = idUser;
     }
 
@@ -74,6 +83,22 @@ public class Usuarios implements Serializable {
         this.passwdUser = passwdUser;
     }
 
+    public String getTipoUser() {
+        return tipoUser;
+    }
+
+    public void setTipoUser(String tipoUser) {
+        this.tipoUser = tipoUser;
+    }
+
+    public Urna getUrnaUser() {
+        return urnaUser;
+    }
+
+    public void setUrnaUser(Urna urnaUser) {
+        this.urnaUser = urnaUser;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -84,10 +109,10 @@ public class Usuarios implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuarios)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Usuarios other = (Usuarios) object;
+        Usuario other = (Usuario) object;
         if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
             return false;
         }
@@ -96,7 +121,7 @@ public class Usuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Usuarios[ idUser=" + idUser + " ]";
+        return "modelo.Usuario[ idUser=" + idUser + " ]";
     }
     
 }

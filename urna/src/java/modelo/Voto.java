@@ -8,7 +8,6 @@ package modelo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,18 +46,18 @@ public class Voto implements Serializable {
     @ManyToOne
     private Chapa idChapaVoto;
     @JoinColumn(name = "id_urna", referencedColumnName = "id_urna")
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne
     private Urna idUrna;
 
     public Voto() {
     }
     
-    public Voto(Urna idUrna, Chapa idChapaVoto, Date dataVoto){
-        this.idUrna = idUrna;
+    public Voto(Urna urna, Chapa idChapaVoto, Date dataVoto){
+        
         this.dataVoto = dataVoto;
         this.idChapaVoto = idChapaVoto;
+        this.idUrna = urna;
     }
-
     public Voto(Integer idVoto) {
         this.idVoto = idVoto;
     }

@@ -57,15 +57,15 @@ public class EleitorMB implements Serializable {
         if (this.eleitor.getSituacao().equals("P")) {
             erro = "Eleitor já votou";
             util.Session.put("erro", this.erro);
-            return "votacao/error";
+            return "error";
         } 
         
         else {
             util.Session.put("eleitor", this.eleitor);
             if (this.eleitor != null) {
-                return "votacao/urna";
+                return "urna";
             } else {
-                return "votacao/eleitor";
+                return "eleitor";
             }
             
         }
