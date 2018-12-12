@@ -17,12 +17,22 @@
                             <label for="urna">Número da Urna: </label>
                         </b:column>
                         <b:column large-screen="9">
+                            
+                            
+                            <!-- Recebe do usuário o id da urna -->
                             <b:inputText id="urna" value="#{votoMB.idUrna}"/>
+                            
+                            
                         </b:column>
                     </b:row>
                     <b:row>
                         <b:column>
+                            
+                            
+                            <!-- Chama o método de iniciar a votação do bean de Voto -->
                             <b:commandButton value="INICIAR VOTAÇÃO" look="success" action="#{votoMB.iniciarVotacao()}"></b:commandButton>
+                        
+                        
                         </b:column>
                     </b:row>
                 </b:panel>

@@ -19,6 +19,8 @@
                         <label for="voto">Número do candidato</label>
                         </b:column>
                         <b:column large-screen="8">
+                            
+                            <!-- Define o número da chapa -->
                             <b:inputText id="voto" value="#{votoMB.numChapa}"/>
                         </b:column>
                     </b:row>
@@ -26,6 +28,7 @@
                     <b:row>
                         <b:column large-screen="8" offset="2">
                             <b:column large-screen="4">
+                                <!-- Executa o método de processar voto -->
                                 <b:commandButton look="success" value="CONFIRMA" action="#{votoMB.processarVoto()}"></b:commandButton>
                             </b:column>
                             <b:column large-screen="4">

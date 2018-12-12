@@ -8,18 +8,43 @@
         <title>Relatório de Votos</title>
     </h:head>
     <h:body>
-
-        <b:dataTable var="voto" value="#{configMB.votos}">
+        <!-- 
+        No datatable é definida uma variável voto que recebe um valor
+        correspondente à lista de votos contida no bean de Voto        
+        -->
+        <b:dataTable var="voto" value="#{votoMB.votos}">
             <b:column>
                 <f:facet name="header">
                     <h:outputText value="Voto"/>
                 </f:facet>
+
+                <!-- Exibe o id de cada voto contido na lista de votos -->
                 <h:outputText value="Id da chapa"/> #{voto.idChapaVoto.toString()}
             </b:column>                
         </b:dataTable>
 
-        <b:button look="success" value="Ir para votação" outcome="eleitor"></b:button>
-        <b:button look="danger" value="Encerrar" outcome="#{votoMB.encerrarVotacao()}" ></b:button>
+        <b:form>
+            <b:panel>
+                <b:row>
+                    <b:column>
+                        
+                        <!-- Segue para a votação, exibindo a página que recebe o eleitor -->
+                        <b:commandButton look="success" value="Ir para votação" action="eleitor"></b:commandButton>
+
+                    </b:column>
+
+                    <b:column>
+                        
+                        <!-- Executa o método que encerra a votação -->
+                        <b:commandButton look="danger" value="Encerrar" action="#{votoMB.encerrarVotacao()}" ></b:commandButton>
+                        
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </b:form>
+
+
+
 
     </h:body>
 </html>

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package controle;
+
 import dao.DAO;
 import dao.DAOchapa;
 import dao.DAOeleitor;
@@ -28,13 +29,12 @@ import modelo.Voto;
 @SessionScoped
 public class VotoMB implements Serializable {
 
-    private int idUrna;
-    private int numChapa;
-    private int cursor = 0;
-    private Urna urna;    
+    private Integer idUrna;
+    private Integer numChapa;
+    private Urna urna;
     private Eleitor eleitor;
     private Chapa chapa;
-    private Voto voto;
+    //private Voto voto; // variável que não está sendo usada mais
     private List<Voto> votos;
     private DAO<Urna> urnaDAO;
     private DAOvoto votoDAO;
@@ -45,24 +45,23 @@ public class VotoMB implements Serializable {
     }
 
     @PostConstruct
-    public void init(){
-        
+    public void init() {
+
         urna = new Urna();
         chapa = new Chapa();
         eleitor = new Eleitor();
-        voto = new Voto();
-        votos = new ArrayList<Voto>();        
+        votos = new ArrayList<Voto>();
         chapaDAO = new DAOchapa("urnaPU");
         urnaDAO = new DAO<Urna>("urnaPU");
         votoDAO = new DAOvoto("urnaPU");
         eleitorDAO = new DAOeleitor("urnaPU");
     }
 
-    public int getIdUrna() {
+        public Integer getIdUrna() {
         return idUrna;
     }
 
-    public void setIdUrna(int idUrna) {
+    public void setIdUrna(Integer idUrna) {
         this.idUrna = idUrna;
     }
 
@@ -74,11 +73,11 @@ public class VotoMB implements Serializable {
         this.votos = votos;
     }
 
-    public int getNumChapa() {
+    public Integer getNumChapa() {
         return numChapa;
     }
 
-    public void setNumChapa(int numChapa) {
+    public void setNumChapa(Integer numChapa) {
         this.numChapa = numChapa;
     }
 
@@ -89,86 +88,96 @@ public class VotoMB implements Serializable {
     public void setUrna(Urna urna) {
         this.urna = urna;
     }
-    
-    
-    
-    
-    
-    
 
     public String iniciarVotacao() {
 
-        this.urna = this.urnaDAO.get(Urna.class, this.idUrna); // provisório
+        //busca no banco de dados a urna corrrespondente à urna digitada
+        //pelo usuário
+        this.urna = this.urnaDAO.get(Urna.class, this.idUrna);
+
+        // se a urna for diferente de null
         if (this.urna != null) {
+
+            // recupera os votos do banco de dados, com o intuito de
+            // provar que não há votos previamente registrados
             this.votos = this.votoDAO.getCandidatos(Voto.class, "Voto.findAll");
+
+            // redireciona para a página de relatórios de voto
             return "relatorio";
-            //return "eleitor";
+
         } else {
+
+            // se a urna não existir, reexibe a página de configuração da urna
             return "config_urna";
+
         }
 
-    }
-
-    public String novoVoto() {
-
-        util.Session.remove("eleitor");
-        return "eleitor";
     }
 
     public String processarVoto() {
         
-        //Voto voto2;
-        
-        
-        // este teste foi adicionado pois o voto nunca mudava, então foi necessário limpar a memória e inicilizar novamente
-        //if(this.cursor != 0)
-        //voto2 = new Voto();
+        /*
+        //busca no banco de dados a urna corrrespondente à urna digitada
+        //pelo usuário
+        this.urna = this.urnaDAO.get(Urna.class, this.idUrna);
+        */
         
         // recupera a chapa de acordo com o numero digitado pelo eleitor
-        this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0); 
+        this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0);
+
         //recupera o eleitor da sessão
         this.eleitor = (Eleitor) util.Session.get("eleitor");
-        // recupera a urna do banco de dados, de acordo com a urna digitada no início da sessão
-        //this.urna = urnaDAO.get(Urna.class, idUrna); removido por duplicidade. Já está no método iniciar votação
-        this.eleitor.setSituacao("P"); // seta a situação do eleitor como presente
-        this.eleitorDAO.update(this.eleitor);//o código para aqui com um exception java.NullPointerException
-        /*
-        voto2.setIdChapaVoto(this.chapa); // seta a chapa votada
-        voto2.setIdUrna(this.urna); // seta a urna do voto
-        voto2.setDataVoto(new Date()); // seta a data do voto
-        voto = voto2;
-        //this.votoDAO.saveList(voto);
-        */
+
+        // seta a situação do eleitor como presente
+        this.eleitor.setSituacao("P");
+
+        //registra a presença do eleitor
+        this.eleitorDAO.update(this.eleitor);
+
+        // adiciona um novo voto na lista de votos
+        // para isso é criada uma variável fantasma
+        // essa variável é instanciada a cada vez
+        // que essa linha é executada
         this.votos.add(new Voto(this.urna, this.chapa, new Date())); // adiciona o voto à lista de votos da sessão
-        //this.voto = null; // limpa a variável voto
-        this.numChapa = 0; // limpa o campo da chapa
-        this.cursor ++; // representa o número de vezes que entrou nesse método
-        
-        return "final"; // redireciona para a pagina de finalização do voto
+
+        // limpa o campo da chapa
+        this.numChapa = 0;
+
+        // redireciona para a pagina de finalização do voto
+        return "final";
     }
-       
-    // limpa os objetos da sessão
-    public String encerrarVotacao(){
-        this.votoDAO.saveList(this.votos); // salva a lista de votos
-        this.votos.clear(); // limpa a lista de votos da memória
-        //this.urna = null; // limpa a urna
+
+    public String novoVoto() {
+        
+        
+        // remove o eleitor atual da sessão
+        // a variável eleitor passa a ser nula
+        util.Session.remove("eleitor");
+        
+        //exibe a página do eleitor
+        return "eleitor";
+    }
+
+
+    public String encerrarVotacao() {
+        // salva no banco de dados a lista de votos
+        this.votoDAO.saveList(this.votos); 
+        
+        // limpa a lista de votos da memória
+        this.votos.clear();
+        
+        // limpa da memória a variável chapa
         this.chapa = null;
-        this.voto = null;
+        
+        // limpa da memória a variável eleitor
         this.eleitor = null;
-        util.Session.clear(); // limpa os objetos na sessão
+        
+        // limpa os objetos na sessão
+        util.Session.clear();
+        
+        // exibe a página de encerramento da votação
         return "encerrar";
     }
-    /*
-    public int listarVotos(){
-        int c = this.votos.size();
-        int sum;
-        while(c > 0){
-            if 
-        }
-               
-    }
-    */
-    
-    
 
 }
+

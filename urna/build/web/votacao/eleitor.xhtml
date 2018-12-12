@@ -18,10 +18,14 @@
                             <label for="titulo">Título de eleitor: </label>
                         </b:column>
                         <b:column large-screen="9">
+                            
+                            <!-- Recebe o título do eleitor -->
                             <b:inputText id="titulo" value="#{eleitorMB.titulo}"/>
                         </b:column>
                     </b:row>
-
+                    
+                    
+                    <!-- Executa o método que libera o voto para o eleitor -->
                     <b:commandButton look="success" value="LIBERAR VOTO" action="#{eleitorMB.liberarVoto()}"></b:commandButton>
                 </b:panel>               
             </b:container>                   

@@ -51,20 +51,40 @@ public class EleitorMB implements Serializable {
     }    
 
     public String liberarVoto() {
-
+        
+        
+        // faz a busca pelo eleitor no banco de dados
         this.eleitor = this.eleitorDAO.get(Eleitor.class, titulo);
 
+        
+        // testa se a situação do eleitor for P
         if (this.eleitor.getSituacao().equals("P")) {
+            // coloca em uma variável de erro uma 
+            // mensagem dizendo que o eleitor já votou
             erro = "Eleitor já votou";
+            
+            // coloca essa variável na sessão
             util.Session.put("erro", this.erro);
+            
+            // exibe uma página de erro
             return "error";
         } 
         
+        // se o eleitor não estiver presente
         else {
+            
+            // coloca o usuário na sessão
             util.Session.put("eleitor", this.eleitor);
+            
+            //se o eleitor for diferente de null
             if (this.eleitor != null) {
+                
+                // exibe a página de votação
                 return "urna";
             } else {
+                
+                // se for diferente de null
+                // reexibe a página de eleitor
                 return "eleitor";
             }
             

@@ -8,7 +8,7 @@ import modelo.Eleitor;
 import modelo.Usuario;
 import modelo.Voto;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-12-11T19:27:43")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-12-12T02:55:58")
 @StaticMetamodel(Urna.class)
 public class Urna_ { 
 

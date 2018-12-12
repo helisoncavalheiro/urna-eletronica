@@ -21,23 +21,28 @@
                             <label for="login" >Login</label>
                         </b:column>
                         <b:column large-screen="10">
+                            <!-- Recebe o login do usuário -->
                             <b:inputText id="login" value="#{loginMB.login}"></b:inputText>
                         </b:column>
                     </b:row>
                     <b:row>
                         <b:column large-screen="2" >
+                            
                             <label for="password" >Senha</label>
                         </b:column>
                         <b:column large-screen="10">
+                            <!-- Recebe a senha do usuário -->
                             <b:inputText id="password" value="#{loginMB.senha}"></b:inputText>
                         </b:column>
                     </b:row>
                     <b:row>
                         <b:container fluid="true" >
                             <b:column large-screen="3">
+                                <!-- Executa o método de autenticação do bean de Login -->
                                 <b:commandButton look="success" value="LOGIN" action="#{loginMB.autenticacao()}" />
                             </b:column>
                             <b:column large-screen="3" >
+                                <!-- Volta para a página inicial -->
                                 <b:commandButton look="danger" value="CANCELAR" action="index" />
                             </b:column>
                         </b:container>

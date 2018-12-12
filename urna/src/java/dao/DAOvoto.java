@@ -27,15 +27,19 @@ public class DAOvoto {
         this.em = em;
     }
 
-    public void saveList(List<Voto> votos) {
+    public List<Voto> getCandidatos(Class<Voto> c, String sql) {
         /*
-        this.em.getTransaction().begin();
-        this.em.persist(voto);
-        //votos.remove(c - 1);
-        this.em.getTransaction().commit();
-        this.em.clear();
-        */
+        String sql = "";
         
+        Query query = this.em.createQuery(sql, c);
+         */
+
+        Query query = this.em.createNamedQuery(sql, c);
+        return query.getResultList();
+    }
+
+    public void saveList(List<Voto> votos) {
+
         int c = votos.size();
 
         while (c > 0) {
@@ -46,18 +50,7 @@ public class DAOvoto {
             this.em.clear();
             c--;
         }
-         
-    }
 
-    public List<Voto> getCandidatos(Class<Voto> c, String sql) {
-        /*
-        String sql = "";
-        
-        Query query = this.em.createQuery(sql, c);
-         */
-
-        Query query = this.em.createNamedQuery(sql, c);
-        return query.getResultList();
     }
 
 }
