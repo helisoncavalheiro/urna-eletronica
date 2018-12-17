@@ -39,5 +39,6 @@ COMMIT;
 
 
 BEGIN;
-	INSERT INTO usuarios(login_user, passwd_user) VALUES('root', 12345);
+	INSERT INTO usuario(login_user, passwd_user, tipo_user, urna_user) VALUES('root', 12345, 'SU', 1);
+	INSERT INTO usuario(login_user, passwd_user, tipo_user, urna_user) VALUES('mesario1', 123456, 'USR', 1);
 COMMIT;

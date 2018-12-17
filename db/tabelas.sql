@@ -51,12 +51,15 @@ CREATE TABLE voto(
 	id_chapa_voto INTEGER,
 	id_urna INTEGER,
 	data_voto DATE,
-	CONSTRAINT fk_chapa_id_chapa FOREIGN KEY (id_chapa) REFERENCES chapa(id_chapa),
+	CONSTRAINT fk_chapa_id_chapa FOREIGN KEY (id_chapa_voto) REFERENCES chapa(id_chapa),
 	CONSTRAINT fk_urna_id_urna FOREIGN KEY (id_urna) REFERENCES urna(id_urna)
 );
 
-CREATE TABLE usuarios(
+CREATE TABLE usuario(
 	id_user SERIAL PRIMARY KEY,
 	login_user VARCHAR(16),
-	passwd_user BIGINT);
-)
+	passwd_user BIGINT,
+	tipo_user VARCHAR(15),
+	urna_user INTEGER,
+	CONSTRAINT fk_urna_user FOREIGN KEY (urna_user) REFERENCES urna(id_urna)
+);
