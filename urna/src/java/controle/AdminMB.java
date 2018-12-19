@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import modelo.Candidato;
 import modelo.Urna;
 import modelo.Usuario;
 
@@ -27,7 +28,11 @@ import modelo.Usuario;
 @SessionScoped
 public class AdminMB implements Serializable {
 
+    //gerenciamento de login
     private Usuario usuarioLogado;
+    
+    
+    //cadastro usuario
     private Usuario novoUsuario;
     private String loginUser;
     private BigInteger senhaUser;
@@ -35,8 +40,8 @@ public class AdminMB implements Serializable {
     private Urna urnaUser;
     private DAO<Usuario> userDAO;
     private DAO<Urna> urnaDAO;
-    private List<Urna> urnas;
-
+    
+    
     public AdminMB() {
     }
 
@@ -51,8 +56,6 @@ public class AdminMB implements Serializable {
         urnaUser = new Urna();
         userDAO = new DAO<Usuario>("urnaPU");
         urnaDAO = new DAO<Urna>("urnaPU");
-        urnas = new ArrayList<Urna>();
-
     }
 
     public Usuario getUsuarioLogado() {
@@ -94,21 +97,13 @@ public class AdminMB implements Serializable {
     public void setUrnaUser(Urna urnaUser) {
         this.urnaUser = urnaUser;
     }
+   
 
-    public List<Urna> getUrnas() {
-        return urnas;
-    }
-
-    public void setUrnas(List<Urna> urnas) {
-        this.urnas = urnas;
-    }
-    
-
-    public void cadastrar() {
+    public void cadastrarUsuario() {
         this.novoUsuario.setLoginUser(loginUser);
         this.novoUsuario.setPasswdUser(senhaUser);
         this.novoUsuario.setTipoUser(tipoUser);
-        this.urnaUser = this.urnaDAO.get(Urna.class, 1);
+        this.urnaUser = this.urnaDAO.get(Urna.class, this.usuarioLogado.getUrnaUser().getIdUrna());
         this.novoUsuario.setUrnaUser(urnaUser);
         this.userDAO.insert(novoUsuario);
     }

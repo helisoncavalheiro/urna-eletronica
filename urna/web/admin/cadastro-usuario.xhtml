@@ -5,7 +5,7 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Cadastro Mesario</title>
+        <title>Cadastro Usuário</title>
     </h:head>
     <h:body>
         
@@ -63,20 +63,9 @@
                     </b:column>
                 </b:row>
 
-
-                <!--
                 <b:row>
                     <b:column>
-                        <b:selectOneMenu>
-                            <f:selectItem value="#{cadastroMB.urnas}"
-                        </b:selectOneMenu>
-                    </b:column>
-                </b:row>
-                -->
-
-                <b:row>
-                    <b:column>
-                        <b:commandButton action="#{adminMB.cadastrar()}" look="success" value="CADASTRAR"/>
+                        <b:commandButton action="#{adminMB.cadastrarUsuario()}" look="success" value="CADASTRAR"/>
                     </b:column>
                 </b:row>
             </b:panel>

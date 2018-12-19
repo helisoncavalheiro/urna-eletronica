@@ -9,24 +9,31 @@
     </h:head>
     <h:body>
 
-        <b:container>
+        <b:container fluid="true">
             <b:panel>
-                <b:column large-screen="9" offset="1">
-                    <h1>SEJA BEM VINDO AO SISTEMA DE VOTAÇÃO</h1>
-                </b:column>                
+                <b:row>
+                    <b:column large-screen="8" offset="3">                    
+                        <h1>BEM VINDO AO SISTEMA DE VOTAÇÃO</h1>
+                    </b:column> 
+                </b:row>
+
             </b:panel>
         </b:container>
         <b:form>
             <b:container>
-                <b:panel large-screen="9" offset="1">
+                <b:panel large-screen="8" offset="2">
                     <b:row>
-                        <b:column large-screen="4">
-                            <!--Abre a página de login para a área administrativa -->
-                            <b:commandButton look="danger" value="ÁREA ADMINISTRATIVA" action="login" />
-                        </b:column>
-                        <b:column large-screen="4">
-                            <!-- Abre a página de login para o mesário -->
-                            <b:commandButton  look="success" value="ÁREA DE VOTAÇÃO" action="login" />
+                        <b:column large-screen="12">
+                            <b:row>
+                                <b:column large-screen="4" offset="2">
+                                    <!--Abre a página de login para a área administrativa -->
+                                    <b:commandButton look="danger" value="ÁREA ADMINISTRATIVA" action="login" />
+                                </b:column>
+                                <b:column large-screen="4">
+                                    <!-- Abre a página de login para o mesário -->
+                                    <b:commandButton  look="success" value="ÁREA DE VOTAÇÃO" action="login" />
+                                </b:column>
+                            </b:row>
                         </b:column>
                     </b:row>
                 </b:panel>
