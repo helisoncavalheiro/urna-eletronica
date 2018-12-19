@@ -28,7 +28,7 @@ import modelo.Usuario;
 public class LoginMB implements Serializable {
 
     private String login;
-    private long senha;
+    private Long senha;
     private Usuario usuario;
     private DAO<Usuario> DAOusuario;
 
@@ -49,11 +49,11 @@ public class LoginMB implements Serializable {
         this.login = login;
     }
 
-    public long getSenha() {
+    public Long getSenha() {
         return senha;
     }
 
-    public void setSenha(long senha) {
+    public void setSenha(Long senha) {
         this.senha = senha;
     }
 

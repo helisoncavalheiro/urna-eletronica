@@ -38,7 +38,7 @@ public class FiltroLogin implements Filter {
         Usuario usr = (Usuario) sessao.getAttribute("usuarioLogado");
         
         if(usr == null){
-            ((HttpServletResponse) response).sendRedirect("../login.xhtml");
+            ((HttpServletResponse) response).sendRedirect("../faces/login.xhtml");
         }
         else
             chain.doFilter(request, response);
