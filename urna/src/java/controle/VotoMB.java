@@ -100,7 +100,11 @@ public class VotoMB implements Serializable {
 
             // recupera os votos do banco de dados, com o intuito de
             // provar que não há votos previamente registrados
-            this.votos = this.votoDAO.getCandidatos(Voto.class, "Voto.findAll");
+            //este código está incorreto, poi sempre recupera os votos já registrados
+            //e coloca na váriavel, fazendo o número de votos crescer
+            //exponencialmente
+            
+            //this.votos = this.votoDAO.getCandidatos(Voto.class, "Voto.findAll");
 
             // redireciona para a página de relatórios de voto
             return "relatorio";

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Relatório de Votos</title>
+    </h:head>
+    <h:body>
+        <!-- 
+        No datatable é definida uma variável voto que recebe um valor
+        correspondente à lista de votos contida no bean de Voto        
+        -->
+        <b:dataTable var="voto" value="#{votoMB.votos}">
+            <b:column>
+                <f:facet name="header">
+                    <h:outputText value="Voto"/>
+                </f:facet>
+
+                <!-- Exibe o id de cada voto contido na lista de votos -->
+                <h:outputText value="Id da chapa"/> #{voto.idChapaVoto.toString()}
+            </b:column>                
+        </b:dataTable>
+
+        <b:form>
+            <b:panel>
+                <b:row>
+                    <b:column>
+                        
+                        <!-- Segue para a votação, exibindo a página que recebe o eleitor -->
+                        <b:commandButton look="success" value="Ir para votação" action="eleitor"></b:commandButton>
+
+                    </b:column>
+
+                    <b:column>
+                        
+                        <!-- Executa o método que encerra a votação -->
+                        <b:commandButton look="danger" value="Encerrar" action="#{votoMB.encerrarVotacao()}" ></b:commandButton>
+                        
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </b:form>
+
+
+
+
+    </h:body>
+</html>
+

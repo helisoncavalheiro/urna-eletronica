@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Eleitor</title>
+    </h:head>
+    <h:body>
+
+        <b:form>
+            <b:container>
+                <b:panel large-screen="6" offset="3">                   
+                    <b:row>
+                        <b:column large-screen="3">
+                            <label for="titulo">Título de eleitor: </label>
+                        </b:column>
+                        <b:column large-screen="9">
+                            
+                            <!-- Recebe o título do eleitor -->
+                            <b:inputText id="titulo" value="#{eleitorMB.titulo}"/>
+                        </b:column>
+                    </b:row>
+                    
+                    
+                    <!-- Executa o método que libera o voto para o eleitor -->
+                    <b:commandButton look="success" value="LIBERAR VOTO" action="#{eleitorMB.liberarVoto()}"></b:commandButton>
+                </b:panel>               
+            </b:container>                   
+        </b:form>
+
+    </h:body>
+</html>
+
