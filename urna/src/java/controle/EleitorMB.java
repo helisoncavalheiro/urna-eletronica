@@ -8,6 +8,8 @@ package controle;
 import dao.DAOeleitor;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import modelo.Eleitor;
@@ -21,7 +23,7 @@ import modelo.Eleitor;
 public class EleitorMB implements Serializable {
 
     private Eleitor eleitor;
-    private long titulo;
+    private Long titulo;
     private DAOeleitor eleitorDAO;
     private String erro;
 
@@ -34,11 +36,11 @@ public class EleitorMB implements Serializable {
         eleitorDAO = new DAOeleitor("urnaPU");
     }
 
-    public long getTitulo() {
+    public Long getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(long titulo) {
+    public void setTitulo(Long titulo) {
         this.titulo = titulo;
     }
 
@@ -61,13 +63,8 @@ public class EleitorMB implements Serializable {
         if (this.eleitor.getSituacao().equals("P")) {
             // coloca em uma variável de erro uma 
             // mensagem dizendo que o eleitor já votou
-            erro = "Eleitor já votou";
-            
-            // coloca essa variável na sessão
-            util.Session.put("erro", this.erro);
-            
-            // exibe uma página de erro
-            return "error";
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Eleitor já votou"));
+            return "eleitor";
         } 
         
         // se o eleitor não estiver presente

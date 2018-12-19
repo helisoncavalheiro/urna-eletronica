@@ -15,7 +15,10 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import modelo.Chapa;
 import modelo.Eleitor;
 import modelo.Urna;
@@ -57,7 +60,7 @@ public class VotoMB implements Serializable {
         eleitorDAO = new DAOeleitor("urnaPU");
     }
 
-        public Integer getIdUrna() {
+    public Integer getIdUrna() {
         return idUrna;
     }
 
@@ -103,9 +106,7 @@ public class VotoMB implements Serializable {
             //este código está incorreto, poi sempre recupera os votos já registrados
             //e coloca na váriavel, fazendo o número de votos crescer
             //exponencialmente
-            
             //this.votos = this.votoDAO.getCandidatos(Voto.class, "Voto.findAll");
-
             // redireciona para a página de relatórios de voto
             return "relatorio";
 
@@ -119,13 +120,12 @@ public class VotoMB implements Serializable {
     }
 
     public String processarVoto() {
-        
+
         /*
         //busca no banco de dados a urna corrrespondente à urna digitada
         //pelo usuário
         this.urna = this.urnaDAO.get(Urna.class, this.idUrna);
-        */
-        
+         */
         // recupera a chapa de acordo com o numero digitado pelo eleitor
         this.chapa = this.chapaDAO.getByField("Chapa.findByNumeroChapa", this.numChapa).get(0);
 
@@ -152,36 +152,43 @@ public class VotoMB implements Serializable {
     }
 
     public String novoVoto() {
-        
-        
+
         // remove o eleitor atual da sessão
         // a variável eleitor passa a ser nula
         util.Session.remove("eleitor");
-        
+
         //exibe a página do eleitor
         return "eleitor";
     }
 
-
     public String encerrarVotacao() {
         // salva no banco de dados a lista de votos
-        this.votoDAO.saveList(this.votos); 
-        
+        this.votoDAO.saveList(this.votos);
+
         // limpa a lista de votos da memória
         this.votos.clear();
-        
+
         // limpa da memória a variável chapa
         this.chapa = null;
-        
+
         // limpa da memória a variável eleitor
         this.eleitor = null;
-        
+
         // limpa os objetos na sessão
         util.Session.clear();
-        
+
         // exibe a página de encerramento da votação
         return "encerrar";
     }
 
-}
+    public String logout() {
 
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);
+        sessaoHttp.removeAttribute("usuarioLogado");
+
+        facesContext.addMessage("", new FacesMessage("Você fez logout!"));
+        return "/login";
+    }
+
+}
