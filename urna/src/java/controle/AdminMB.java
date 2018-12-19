@@ -6,14 +6,16 @@
 package controle;
 
 import dao.DAO;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.faces.view.ViewScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import modelo.Urna;
 import modelo.Usuario;
 
@@ -21,11 +23,12 @@ import modelo.Usuario;
  *
  * @author helison
  */
-@Named(value = "cadastroMB")
-@ViewScoped
-public class CadastroMB implements Serializable {
+@Named(value = "adminMB")
+@SessionScoped
+public class AdminMB implements Serializable {
 
-    private Usuario usuario;
+    private Usuario usuarioLogado;
+    private Usuario novoUsuario;
     private String loginUser;
     private BigInteger senhaUser;
     private String tipoUser;
@@ -34,17 +37,30 @@ public class CadastroMB implements Serializable {
     private DAO<Urna> urnaDAO;
     private List<Urna> urnas;
 
-    public CadastroMB() {
+    public AdminMB() {
     }
 
     @PostConstruct
-    public void init(){
-        usuario = new Usuario();
+    public void init() {
+        usuarioLogado = new Usuario();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);
+        usuarioLogado = (Usuario) sessaoHttp.getAttribute("usuarioLogado");
+
+        novoUsuario = new Usuario();
         urnaUser = new Urna();
         userDAO = new DAO<Usuario>("urnaPU");
         urnaDAO = new DAO<Urna>("urnaPU");
-        urnas = new ArrayList<Urna>();        
-        
+        urnas = new ArrayList<Urna>();
+
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(Usuario usuario) {
+        this.usuarioLogado = usuario;
     }
 
     public String getLoginUser() {
@@ -86,14 +102,25 @@ public class CadastroMB implements Serializable {
     public void setUrnas(List<Urna> urnas) {
         this.urnas = urnas;
     }
-        
-    public void cadastrar(){
-        this.usuario.setLoginUser(loginUser);
-        this.usuario.setPasswdUser(senhaUser);
-        this.usuario.setTipoUser(tipoUser);
-        this.urnaUser = this.urnaDAO.get(Urna.class, 1);
-        this.usuario.setUrnaUser(urnaUser);        
-        this.userDAO.insert(usuario);        
-    }
     
+
+    public void cadastrar() {
+        this.novoUsuario.setLoginUser(loginUser);
+        this.novoUsuario.setPasswdUser(senhaUser);
+        this.novoUsuario.setTipoUser(tipoUser);
+        this.urnaUser = this.urnaDAO.get(Urna.class, 1);
+        this.novoUsuario.setUrnaUser(urnaUser);
+        this.userDAO.insert(novoUsuario);
+    }
+
+    public String logout() {
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);
+        sessaoHttp.removeAttribute("usuarioLogado");
+
+        facesContext.addMessage("", new FacesMessage("Você fez logout!"));
+        return "/login";
+    }
+
 }

@@ -113,14 +113,4 @@ public class LoginMB implements Serializable {
         // se nada funcionar, reexibe a página de login
         return "login";
     }
-
-    public String logout() {
-        
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);
-        sessaoHttp.removeAttribute("usuarioLogado");
-        
-        facesContext.addMessage("", new FacesMessage("Você fez logout!"));
-        return "/login";
-    }
 }

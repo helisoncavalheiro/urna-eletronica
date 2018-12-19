@@ -9,6 +9,21 @@
     </h:head>
     <h:body>
         <b:form>
+            <b:panel>
+                <b:row>
+                    <b:column large-screen="1" >
+                        <label> Usuário logado: </label>
+                    </b:column>
+                    <b:column large-screen="1">
+                        <h:outputText  value="#{adminMB.usuarioLogado.loginUser.toString()}"/>
+                    </b:column>
+                    <b:column large-screen="1">
+                        <b:commandButton value="Logout" look="danger" action="#{adminMB.logout()}"></b:commandButton>
+                    </b:column>
+                </b:row>
+            </b:panel>
+            
+            
             <b:container fluid="true">
                 <b:panel>
                     <b:column>
@@ -24,10 +39,8 @@
                         <b:row>
                             <b:commandButton value="Configurar urna" look="success" ></b:commandButton>
                         </b:row>
-                        
-                        <b:row>
-                            <b:commandButton value="Logout" look="danger" action="#{loginMB.logout()}"></b:commandButton>
-                        </b:row>
+
+
                     </b:column>
                 </b:panel>
 
